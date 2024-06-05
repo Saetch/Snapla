@@ -1,7 +1,8 @@
+workspace = { members = ["info_parser_from_docx"] }
 [package]
-name = "eframe_template"
+name = "Snapla"
 version = "0.1.0"
-authors = ["Emil Ernerfeldt <emil.ernerfeldt@gmail.com>"]
+authors = ["Nils Wriedt"]
 edition = "2021"
 include = ["LICENSE-APACHE", "LICENSE-MIT", "**/*.rs", "Cargo.toml"]
 rust-version = "1.76"
