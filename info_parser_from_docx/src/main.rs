@@ -36,14 +36,14 @@ fn main() {
         let file = file.unwrap();
         let file_name = file.file_name();
         let file_name = file_name.to_str().unwrap();
-
         println!("{}", file_name);  
         let parsed_content = read_parse_whacky_input_and_deserialize_docx_file(&format!("information/{}", file_name));
         
         for (key, value) in &parsed_content.0.lms {
             println!("Lebensmittel: {}", key);
+            println!("{}", key.len());
             for (k, v) in value {
-               // println!("{}: {}", k, v)
+               println!("{}: {}", k, v);
             }
     
         }
@@ -51,7 +51,12 @@ fn main() {
         nut_values.push(parsed_content.1);
     }
     let combined_info = combine_info(parsed_contents);
-    
+    combined_info.iter().for_each(|(k, v)| {
+        println!("\n\nLebensmittel: {}", k);
+        for (k, v) in v {
+            println!("{}: {}", k, v);
+        }
+    });
     let daten = Daten {
         lebensmittel: combined_info,
         tagesbedarf: nut_values,

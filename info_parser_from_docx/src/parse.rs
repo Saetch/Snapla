@@ -64,7 +64,7 @@ fn deserialize_content(content: &str) -> (ParsedContent, TagesBedarfInMg) {
     let mut carry_over_string = String::new();
     println!("\n\n\n\n");
     while let Some(part) = parts.next(){
-        if part == "" || part == "Quin" || part == "Quinoa" || part == "oa" || part == "a" || part == "Quino" {
+        if part == ""{
             println!("Skipping: {}", part);
             continue;
         }
