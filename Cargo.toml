@@ -1,7 +1,8 @@
+workspace = { members = ["info_parser_from_docx"] }
 [package]
-name = "eframe_template"
+name = "snapla"
 version = "0.1.0"
-authors = ["Emil Ernerfeldt <emil.ernerfeldt@gmail.com>"]
+authors = ["Nils Wriedt"]
 edition = "2021"
 include = ["LICENSE-APACHE", "LICENSE-MIT", "**/*.rs", "Cargo.toml"]
 rust-version = "1.76"
@@ -12,12 +13,7 @@ targets = ["x86_64-unknown-linux-gnu", "wasm32-unknown-unknown"]
 
 [dependencies]
 egui = "0.27.0"
-eframe = { version = "0.27.0", default-features = false, features = [
-    "accesskit",     # Make egui comptaible with screen readers. NOTE: adds a lot of dependencies.
-    "default_fonts", # Embed the default egui fonts.
-    "glow",          # Use the glow rendering backend. Alternative: "wgpu".
-    "persistence",   # Enable restoring app state when restarting the app.
-] }
+eframe = { version = "0.27.0", default-features = false, features = ["accesskit", "default_fonts", "glow", "persistence"] }
 log = "0.4"
 
 # You only need serde if you want app persistence:
