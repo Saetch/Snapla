@@ -1,6 +1,6 @@
 workspace = { members = ["info_parser_from_docx"] }
 [package]
-name = "Snapla"
+name = "snapla"
 version = "0.1.0"
 authors = ["Nils Wriedt"]
 edition = "2021"

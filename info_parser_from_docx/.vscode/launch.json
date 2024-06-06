@@ -44,16 +44,16 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in library 'Snapla'",
+            "name": "Debug unit tests in library 'snapla'",
             "cargo": {
                 "args": [
                     "test",
                     "--no-run",
                     "--lib",
-                    "--package=Snapla"
+                    "--package=snapla"
                 ],
                 "filter": {
-                    "name": "Snapla",
+                    "name": "snapla",
                     "kind": "lib"
                 }
             },
@@ -63,15 +63,15 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'Snapla'",
+            "name": "Debug executable 'snapla'",
             "cargo": {
                 "args": [
                     "build",
-                    "--bin=Snapla",
-                    "--package=Snapla"
+                    "--bin=snapla",
+                    "--package=snapla"
                 ],
                 "filter": {
-                    "name": "Snapla",
+                    "name": "snapla",
                     "kind": "bin"
                 }
             },
@@ -81,16 +81,16 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in executable 'Snapla'",
+            "name": "Debug unit tests in executable 'snapla'",
             "cargo": {
                 "args": [
                     "test",
                     "--no-run",
-                    "--bin=Snapla",
-                    "--package=Snapla"
+                    "--bin=snapla",
+                    "--package=snapla"
                 ],
                 "filter": {
-                    "name": "Snapla",
+                    "name": "snapla",
                     "kind": "bin"
                 }
             },
