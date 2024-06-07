@@ -2419,8 +2419,10 @@ dependencies = [
  "eframe",
  "egui",
  "env_logger",
+ "fxhash",
  "log",
  "serde",
+ "serde_json",
  "wasm-bindgen-futures",
 ]
 

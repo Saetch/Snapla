@@ -1,47 +1,12 @@
 use egui::Visuals;
 
-
-/// We derive Deserialize/Serialize so we can persist app state on shutdown.
-#[derive(serde::Deserialize, serde::Serialize)]
-pub struct Snapla {
-    // Example stuff:
-    label: String,
-
-    value: f32,
-    #[serde(skip)]
-    inner_state: InnerState,
-}
-
-
-#[derive(Default)]
-struct InnerState {
-    mode: DisplayMode,   
-}
-
-#[derive(Default)]
-enum DisplayMode {
-    #[default]
-    Light, Dark
-}
+use crate::snapla::Snapla;
 
 
 
-impl Snapla {
-    /// Called once before the first frame.
-    pub fn new(_cc: &eframe::CreationContext<'_>) -> Self {
-        // This is also where you can customize the look and feel of egui using
-        // `cc.egui_ctx.set_visuals` and `cc.egui_ctx.set_fonts`.
-        // Load previous app state (if any).
-        // Note that you must enable the `persistence` feature for this to work.
-        
-        Snapla {
-            label: "Hello, world!".to_owned(),
-            value: 5.0,
-            inner_state: InnerState::default(),
-        }
 
-    }
-}
+
+
 
 impl eframe::App for Snapla {
 

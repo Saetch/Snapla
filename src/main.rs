@@ -1,8 +1,15 @@
+
 #![warn(clippy::all, rust_2018_idioms)]
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // hide console window on Windows in release
                                                                    // When compiling natively:
+
+
+mod app;
+mod snapla;
 #[cfg(not(target_arch = "wasm32"))]
 fn main() -> eframe::Result<()> {
+    use snapla::Snapla;
+
     env_logger::init(); // Log to stderr (if you run with `RUST_LOG=debug`).
 
     let native_options = eframe::NativeOptions {
@@ -19,7 +26,7 @@ fn main() -> eframe::Result<()> {
     eframe::run_native(
         "Snapla",
         native_options,
-        Box::new(|cc| Box::new(snapla::Snapla::new(cc))),
+        Box::new(|cc| Box::new(Snapla::new(cc))),
     )
 }
 
