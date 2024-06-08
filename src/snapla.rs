@@ -78,10 +78,8 @@ impl Snapla {
         }
         let mut to_remove = None;
 
-        let mut style = (*ui.ctx().style()).clone();
 
-        style.spacing.item_spacing = egui::vec2(10.0, 2.0);
-        ui.ctx().set_style(style);
+
         ui.vertical_centered(|ui| {
             ui.horizontal(|ui| {
                 egui::Grid::new("LMS").show(ui, |ui| {
