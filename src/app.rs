@@ -1,5 +1,4 @@
 use egui::Visuals;
-
 use crate::snapla::Snapla;
 
 
@@ -37,8 +36,25 @@ impl eframe::App for Snapla {
 
         egui::CentralPanel::default().show(ctx, |ui| {
             // The central panel the region left after adding TopPanel's and SidePanel's
-            ui.heading("Snack-Planer");
-
+            ui.heading("Planer");
+            ui.separator();
+            ui.horizontal(|ui| {
+                ui.selectable_value(&mut self.view, crate::snapla::View::View1, "Planen");
+                ui.selectable_value(&mut self.view, crate::snapla::View::View2, "Nährwertergebnis");
+                ui.selectable_value(&mut self.view, crate::snapla::View::View3, "Lebensmittel")
+            });
+            match self.view {
+                crate::snapla::View::View1 => {
+                    self.plan(ui);
+                }
+                crate::snapla::View::View2 => {
+                    self.show_result(ui);
+                }
+                crate::snapla::View::View3 => {
+                    self.show_food_details(ui);
+                }
+                
+            }
             ui.horizontal(|ui| {
                 ui.label("Write something: ");
                 ui.text_edit_singleline(&mut self.label);
@@ -51,6 +67,7 @@ impl eframe::App for Snapla {
 
             ui.separator();
 
+                    
 
             ui.with_layout(egui::Layout::bottom_up(egui::Align::LEFT), |ui| {
                 powered_by_egui_and_eframe(ui);
