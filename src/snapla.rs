@@ -31,7 +31,6 @@ impl Snapla {
         // Note that you must enable the `persistence` feature for this to work.
         let data = Self::load_data();
         _cc.egui_ctx.set_visuals(egui::Visuals::dark());
-        _cc.egui_ctx.set_pixels_per_point(1.7);
         Snapla {
             label: "Hello, world!".to_owned(),
             value: 5.0,

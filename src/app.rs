@@ -1,5 +1,4 @@
 use crate::snapla::Snapla;
-use egui::Visuals;
 
 impl eframe::App for Snapla {
     /// Called each time the UI needs repainting, which may be many times per second.
