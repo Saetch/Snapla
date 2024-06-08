@@ -93,8 +93,8 @@ impl Snapla {
                         }
                         ui.add_space(60.0);
                         ui.add(
-                            egui::Slider::new(&mut self.selected_lms[i].1, 0..=1000)
-                                .text("g   ".to_owned() + &name + ""),
+                            egui::Slider::new(&mut self.selected_lms[i].1, 0..=500)
+                                .text("g   ".to_owned() + &name + "").step_by(5.0),
                         );
                         ui.end_row();
                     }
