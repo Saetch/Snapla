@@ -15,15 +15,14 @@ pub(crate) struct Snapla {
     pub(crate) view: View,
 }
 
-
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub (crate) enum View {
+pub(crate) enum View {
     View1,
     View2,
     View3,
 }
 
-impl Snapla{
+impl Snapla {
     /// Called once before the first frame.
     pub(crate) fn new(_cc: &eframe::CreationContext<'_>) -> Self {
         // This is also where you can customize the look and feel of egui using
@@ -41,14 +40,12 @@ impl Snapla{
             selected_lms: Vec::new(),
             new_selection: None,
         }
-
     }
 
-
-    fn calculate_nutrition(&self) -> FxHashMap<String, f64>{
+    fn calculate_nutrition(&self) -> FxHashMap<String, f64> {
         let mut result = FxHashMap::default();
-        for (lm, amount) in self.selected_lms.iter(){
-            for (nutrient, concentration) in self.data.lebensmittel.get(lm).unwrap().iter(){
+        for (lm, amount) in self.selected_lms.iter() {
+            for (nutrient, concentration) in self.data.lebensmittel.get(lm).unwrap().iter() {
                 let value = result.entry(nutrient.clone()).or_insert(0.0);
                 *value += concentration * (*amount as f64);
             }
@@ -56,84 +53,85 @@ impl Snapla{
         result
     }
 
-
-    fn load_data() -> Daten{
-        
+    fn load_data() -> Daten {
         let bytes = include_bytes!("../info_parser_from_docx/serialized/daten.json");
         let data: Daten = serde_json::from_slice(bytes).unwrap();
-        for (key, value) in data.lebensmittel.iter(){
+        for (key, value) in data.lebensmittel.iter() {
             println!("\n{}: ", key);
-            for (key, value) in value.iter(){
+            for (key, value) in value.iter() {
                 println!("{}: {}", key, value);
             }
         }
-        for tagesbedarf in data.tagesbedarf.iter(){
+        for tagesbedarf in data.tagesbedarf.iter() {
             println!("{}: {}", tagesbedarf.name, tagesbedarf.wert);
         }
         data
     }
 
-    pub(crate) fn plan(&mut self, ui : &mut egui::Ui){
-        if self.new_selection.is_some(){
+    pub(crate) fn plan(&mut self, ui: &mut egui::Ui) {
+        if self.new_selection.is_some() {
             let refer = self.new_selection.as_ref().unwrap().clone();
             self.selected_lms.push((refer, 0));
             self.new_selection = None;
         }
-        if ui.button("Test").clicked(){
+        if ui.button("Test").clicked() {
             println!("Test");
         }
         let mut to_remove = None;
-        
+
         let mut style = (*ui.ctx().style()).clone();
-        
+
         style.spacing.item_spacing = egui::vec2(10.0, 2.0);
         ui.ctx().set_style(style);
         ui.vertical_centered(|ui| {
             ui.horizontal(|ui| {
-                    egui::Grid::new("LMS").show(ui, |ui|{
-                        let len = self.selected_lms.len();
-                        for i in 0 .. len{
-                            let name = self.selected_lms[i].0.clone();
-                            ui.label(format!("{}", &name));
-                        
-                            if ui.button("Entfernen").clicked(){
-                                to_remove = Some(i);
-                            }
-                            ui.add_space(60.0);
-                            ui.add(egui::Slider::new(&mut self.selected_lms[i].1, 0..=1000).text("g   ".to_owned()+&name+""));
-                            ui.end_row();
-                        }
-                    })
-                })
-            });
+                egui::Grid::new("LMS").show(ui, |ui| {
+                    let len = self.selected_lms.len();
+                    for i in 0..len {
+                        let name = self.selected_lms[i].0.clone();
+                        ui.label(format!("{}", &name));
 
-        
-        if let Some(i) = to_remove{
+                        if ui.button("Entfernen").clicked() {
+                            to_remove = Some(i);
+                        }
+                        ui.add_space(60.0);
+                        ui.add(
+                            egui::Slider::new(&mut self.selected_lms[i].1, 0..=1000)
+                                .text("g   ".to_owned() + &name + ""),
+                        );
+                        ui.end_row();
+                    }
+                })
+            })
+        });
+
+        if let Some(i) = to_remove {
             self.selected_lms.remove(i);
         }
 
         egui::ComboBox::from_label("Zusätzliches Lebensmittel")
-        .selected_text(format!("{:?}", "Lebensmittel hinzufügen"))
-        .show_ui(ui, |ui| {
-            self.data.lebensmittel.iter().filter(|x| !self.selected_lms.iter().any(|y| &y.0 == x.0)).for_each(|(key, _value)| {
-                ui.selectable_value(&mut self.new_selection, Some(key.to_owned()), key);
+            .selected_text(format!("{:?}", "Lebensmittel hinzufügen"))
+            .show_ui(ui, |ui| {
+                self.data
+                    .lebensmittel
+                    .iter()
+                    .filter(|x| !self.selected_lms.iter().any(|y| &y.0 == x.0))
+                    .for_each(|(key, _value)| {
+                        ui.selectable_value(&mut self.new_selection, Some(key.to_owned()), key);
                     });
-            }
-        );
+            });
     }
 
-    pub(crate) fn show_result(&mut self, ui : &mut egui::Ui){
-    }
+    pub(crate) fn show_result(&mut self, ui: &mut egui::Ui) {}
 
-
-    pub(crate) fn show_food_details(&mut self, ui : &mut egui::Ui){
+    pub(crate) fn show_food_details(&mut self, ui: &mut egui::Ui) {
         let mut style = (*ui.ctx().style()).clone();
         style.spacing.item_spacing = egui::vec2(10.0, 2.0);
         ui.ctx().set_style(style);
         ui.vertical_centered(|ui| {
             ui.horizontal(|ui| {
-                egui::Grid::new("LMS").show(ui, |ui|{
-                    for (key, value) in self.data.lebensmittel.iter(){
+                egui::Grid::new("LMS").show(ui, |ui| {
+                    for (key, value) in self.data.lebensmittel.iter() {
                         ui.label(format!("{}", key));
                         ui.label(format!("{:?}", value));
                         ui.end_row();
@@ -143,7 +141,6 @@ impl Snapla{
         });
     }
 }
-
 
 #[derive(Debug, Deserialize)]
 pub(crate) struct TagesBedarfInMg {
