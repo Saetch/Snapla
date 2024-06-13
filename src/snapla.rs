@@ -1,5 +1,5 @@
 use eframe::glow::LEFT;
-use egui::{load, Button, Layout, ScrollArea, Ui};
+use egui::{emath::smart_aim, load, Button, Layout, ScrollArea, Ui};
 use fxhash::FxHashMap;
 use serde::{Deserialize, Serialize};
 
@@ -78,7 +78,10 @@ impl Snapla {
         }
         let mut to_remove = None;
 
-
+        ui.ctx().style_mut(|style| {
+            style.spacing.slider_width = 200.0;
+            
+        });
 
         ui.vertical_centered(|ui| {
             ui.horizontal(|ui| {
@@ -87,7 +90,7 @@ impl Snapla {
                     for i in 0..len {
                         let name = self.selected_lms[i].0.clone();
                         ui.label(format!("{}", &name));
-
+                        
                         if ui.button("Entfernen").clicked() {
                             to_remove = Some(i);
                         }
