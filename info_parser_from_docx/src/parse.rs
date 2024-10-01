@@ -229,7 +229,9 @@ fn deserialize_content(content: &str) -> (ParsedContent, TagesBedarfInMg) {
         expect_mg_after_rel = true;
         built_string = String::new();
     }
-
+    if requirement_name == "Salz"{
+        required_amount = required_amount * 1000.0;
+    }
     (
         rt,
         TagesBedarfInMg {

@@ -1,18 +1,8 @@
-use egui::Visuals;
 use crate::snapla::Snapla;
 
-
-
-
-
-
-
 impl eframe::App for Snapla {
-
-
     /// Called each time the UI needs repainting, which may be many times per second.
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-              
         // Put your widgets into a `SidePanel`, `TopBottomPanel`, `CentralPanel`, `Window` or `Area`.
         // For inspiration and more examples, go to https://emilk.github.io/egui
         egui::TopBottomPanel::top("top_panel").show(ctx, |ui| {
@@ -40,7 +30,11 @@ impl eframe::App for Snapla {
             ui.separator();
             ui.horizontal(|ui| {
                 ui.selectable_value(&mut self.view, crate::snapla::View::View1, "Planen");
-                ui.selectable_value(&mut self.view, crate::snapla::View::View2, "Nährwertergebnis");
+                ui.selectable_value(
+                    &mut self.view,
+                    crate::snapla::View::View2,
+                    "Nährwertergebnis",
+                );
                 ui.selectable_value(&mut self.view, crate::snapla::View::View3, "Lebensmittel")
             });
             match self.view {
@@ -53,7 +47,6 @@ impl eframe::App for Snapla {
                 crate::snapla::View::View3 => {
                     self.show_food_details(ui);
                 }
-                
             }
             ui.horizontal(|ui| {
                 ui.label("Write something: ");
@@ -66,8 +59,6 @@ impl eframe::App for Snapla {
             }
 
             ui.separator();
-
-                    
 
             ui.with_layout(egui::Layout::bottom_up(egui::Align::LEFT), |ui| {
                 powered_by_egui_and_eframe(ui);
